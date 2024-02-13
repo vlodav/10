@@ -1,37 +1,47 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
-// Функция для вычисления произведения
-double proizvedenie(int k, int m) {
-    if (k >= m) {
+
+// Рекурсивная функция для вычисления произведения элементов массива
+double product(double arr[], int n) {
+    if (n <= 0)
         return 1;
-    }
-    else {
-        return (1.0 / k + 1.0 / m) * proizvedenie(k + 1, m);
-    }
+    return arr[n - 1] * product(arr, n - 1);
 }
 
-// Функция для вычисления суммы
-double summa(int p, int a) {
-    if (p >= 5) {
+// Рекурсивная функция для вычисления суммы элементов массива
+double sum(double arr[], int n) {
+    if (n <= 0)
         return 0;
+    return arr[n - 1] + sum(arr, n - 1);
+}
+
+// Функция для вычисления значения y
+double y(int m, double a) {
+    // Создаем массив для хранения элементов произведения
+    double prod_arr[6];
+    for (int k = 3; k <= 8; k++) {
+        prod_arr[k - 3] = 1 + 1.0 / k + 1.0 / m;
     }
-    else {
-        return pow(a, p) / sin(p) + summa(p + 1, a);
+    // Создаем массив для хранения элементов суммы
+    double sum_arr[5];
+    for (int p = 1; p <= 5; p++) {
+        sum_arr[p - 1] = pow(a, p) / sin(p);
     }
+    // Вычисляем произведение и сумму с помощью рекурсивных функций
+    double prod = product(prod_arr, 6);
+    double sum = sum(sum_arr, 5);
+    // Возвращаем значение y
+    return prod * sum;
 }
 
 int main() {
-    setlocale(LC_ALL, "ru");
-    int m = 8;
-    int k = 3;
-    int a = 2;
-    double otvet;
-    double product = proizvedenie(k, m);
-    double sum = summa(1, a);
-
-    cout << "Произведение: " << product << endl;
-    cout << "Сумма: " << sum << endl;
-    otvet = product * sum;
-    cout<<"произведение = " << otvet;
+    int m;
+    double a;
+    cout << "Введите m: ";
+    cin >> m;
+    cout << "Введите a: ";
+    cin >> a;
+    cout << "Значение y: " << y(m, a) << endl;
     return 0;
 }
