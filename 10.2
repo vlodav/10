@@ -2,46 +2,37 @@
 #include <cmath>
 using namespace std;
 
-// Рекурсивная функция для вычисления произведения элементов массива
-double product(double arr[], int n) {
-    if (n <= 0)
-        return 1;
-    return arr[n - 1] * product(arr, n - 1);
-}
-
-// Рекурсивная функция для вычисления суммы элементов массива
-double sum(double arr[], int n) {
-    if (n <= 0)
+double summ(int a, int p)
+{
+    if (p == 0)
         return 0;
-    return arr[n - 1] + sum(arr, n - 1);
+    double value = pow(a, p) / sin(p);
+    return value + summ(a, p - 1);
 }
 
-// Функция для вычисления значения y
-double y(int m, double a) {
-    // Создаем массив для хранения элементов произведения
-    double prod_arr[6];
-    for (int k = 3; k <= 8; k++) {
-        prod_arr[k - 3] = 1 + 1.0 / k + 1.0 / m;
-    }
-    // Создаем массив для хранения элементов суммы
-    double sum_arr[5];
-    for (int p = 1; p <= 5; p++) {
-        sum_arr[p - 1] = pow(a, p) / sin(p);
-    }
-    // Вычисляем произведение и сумму с помощью рекурсивных функций
-    double prod = product(prod_arr, 6);
-    double sum = sum(sum_arr, 5);
-    // Возвращаем значение y
-    return prod * sum;
+double prod(int m, int k)
+{
+    if (k > 8)
+        return 1;
+    double value = 1.0 / k + 1.0 / m;
+    return value * prod(m, k + 1);
 }
 
 int main() {
-    int m;
-    double a;
-    cout << "Введите m: ";
-    cin >> m;
-    cout << "Введите a: ";
-    cin >> a;
-    cout << "Значение y: " << y(m, a) << endl;
+    setlocale(LC_ALL, "ru");
+    int a = 3; // Примерное значение для 'a'
+    int p = 5; // Примерное конечное значение для 'p'
+
+    int m = 4; // Примерное значение для 'm'
+
+    cout << "Сумма: " << summ(a, p) << endl;
+
+    double productValue = m * prod(m, 3); // Начиная с k=3, как в примере
+    cout << "Произведение: " << productValue << endl;
+
+    cout << "Произведение * сумму: " << productValue * summ(a, p) << endl;
+
     return 0;
 }
+
+
